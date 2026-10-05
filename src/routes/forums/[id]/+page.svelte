@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { createMessage, getMessages } from "./remote.ts";
+    import { createMessage, getMessages } from "./remote.js";
     let { params } = $props();
 </script>
 
