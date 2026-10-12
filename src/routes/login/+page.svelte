@@ -5,6 +5,6 @@
 <form {...login}>
     <input {...login.fields.username.as("text")}/>,
     <input {...login.fields.password.as("password")}/>,
-
-    <button>login</button>
+    <p>No account? Go to the <a href="/register">register page!</a></p>
+        <button>sigma</button>
 </form>

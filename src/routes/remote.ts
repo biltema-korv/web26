@@ -11,7 +11,7 @@ export const addName = form(
         text:v.pipe(v.string(),v.nonEmpty()),
     }),
     async ({text})=> {
-        await db.orm.public.Todo.create({ text, completed: false });
+        await db.orm.public.Todo.create({ text });
     }
 )
 export const deleteName = form(
@@ -20,5 +20,14 @@ export const deleteName = form(
     }),
     async ({id})=>{
         await db.orm.public.Todo.where({ id: id }).delete();
+    }
+)
+
+export const sigmaName = form(
+    v.object({
+        id:v.pipe(v.number()),
+    }),
+    async ({id})=>{
+        await db.orm.public.Todo.where({ id: id }).update({ completed: false });
     }
 )

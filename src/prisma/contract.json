@@ -15,6 +15,10 @@
     "todo": {
       "model": "Todo",
       "namespace": "public"
+    },
+    "user": {
+      "model": "User",
+      "namespace": "public"
     }
   },
   "domain": {
@@ -166,6 +170,47 @@
               "namespaceId": "public",
               "table": "todo"
             }
+          },
+          "User": {
+            "fields": {
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "passwordHash": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "username": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {},
+            "storage": {
+              "fields": {
+                "id": {
+                  "column": "id"
+                },
+                "passwordHash": {
+                  "column": "passwordHash"
+                },
+                "username": {
+                  "column": "username"
+                }
+              },
+              "namespaceId": "public",
+              "table": "user"
+            }
           }
         }
       }
@@ -289,6 +334,39 @@
                 ]
               },
               "uniques": []
+            },
+            "user": {
+              "columns": {
+                "id": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": false
+                },
+                "passwordHash": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": false
+                },
+                "username": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ]
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "username"
+                  ]
+                }
+              ]
             }
           }
         },
@@ -296,10 +374,10 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "6410047e0cb891d87807b48f620bf78c901fa40846870b2533b1bea1379b5182"
+    "storageHash": "92da8726968f8114c684fcda8f1432882aade35ba421f2b0fd5fe8b350020cce"
   },
   "execution": {
-    "executionHash": "367b18f036b99901eaeb95598f89928405df26e27ea2ebbf3d879f997e230c5e",
+    "executionHash": "c09bee2f73f38c9126bd7966926ddf657a91b8ccd128ada81312bef46d02438c",
     "mutations": {
       "defaults": [
         {
@@ -311,6 +389,17 @@
             "column": "id",
             "namespace": "public",
             "table": "forum"
+          }
+        },
+        {
+          "onCreate": {
+            "id": "uuidv4",
+            "kind": "generator"
+          },
+          "ref": {
+            "column": "id",
+            "namespace": "public",
+            "table": "user"
           }
         }
       ]
