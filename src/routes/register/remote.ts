@@ -8,14 +8,14 @@ import { hashPassword } from "#lib/server/password.ts";
 export const register = form(
     v.object({
         username: v.string(),
-        _password: v.string(),
+        _password: v.pipe(v.string(), v.minLength(8, "Minst 8 tecken"))
     }),
     async ({username, _password}, issue) => {
         const { cookies } = getRequestEvent();
         const taken = await db.orm.public.User.where({ username }).first();
 
         if (taken) {
-            invalid(issue.username(" CALLanvändarnamnet HIDE. IT ISING."));
+            invalid(issue.username("Användarnam upptaget"));
         }
         
         await db.orm.public.User.create({ username: username, passwordHash: await hashPassword(_password) });
